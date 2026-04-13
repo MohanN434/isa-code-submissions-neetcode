@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Longest Common Prefix Visualization</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1>Longest Common Prefix</h1>
+        <p>Interactive algorithm visualization and step-by-step execution.</p>
+    </header>
+
+    <main>
+        <section class="card description-card">
+            <h2>Algorithm Visualization</h2>
+            <div class="english-desc">
+                <p><strong>Goal:</strong> Find the longest prefix that is common among all strings in an array.</p>
+                <p><strong>Approach:</strong></p>
+                <ul>
+                    <li>Take the first string as the initial "longest common prefix" hypothesis.</li>
+                    <li>Iterate through the remaining strings in the array.</li>
+                    <li>For each string, match its characters against the current prefix one by one.</li>
+                    <li>Stop comparing as soon as a mismatch is found or you reach the end of either string.</li>
+                    <li>Update the hypothesized longest common prefix to just the consistently matched characters.</li>
+                    <li>If the prefix becomes completely empty at any point, we can return <code>""</code> early.</li>
+                </ul>
+            </div>
+            
+            <div class="test-cases">
+                <h3>Test Cases</h3>
+                <div class="cases-selector" id="case-selector">
+                    <button class="case-btn active" data-case="0">Standard 1</button>
+                    <button class="case-btn" data-case="1">Standard 2</button>
+                    <button class="case-btn" data-case="2">Edge 1 (Single Item)</button>
+                    <button class="case-btn" data-case="3">Edge 2 (Empty String)</button>
+                </div>
+                <div class="case-info">
+                    <p><strong>Input:</strong> <code id="case-input"></code></p>
+                    <p><strong>Expected Output:</strong> <code id="case-output"></code></p>
+                </div>
+            </div>
+        </section>
+
+        <section class="visualizer-section">
+            <div class="panels-container">
+                <div class="card code-panel">
+                    <div class="panel-header">Python Code</div>
+                    <pre><code id="code-block" class="language-python">
+class Solution:
+    def longestCommonPrefix(self, strs: List[str]) -> str:
+        longest = strs[0]
+
+        for s in strs:
+            c_long = ""
+            i = 0
+
+            while i < len(s) and i < len(longest):
+                if s[i] != longest[i]:
+                    break
+                c_long += s[i]
+                i += 1
+            
+            longest = c_long
+            if longest == "":
+                return ""
+
+        return longest</code></pre>
+                </div>
+                
+                <div class="card state-panel">
+                    <div class="panel-header">Execution State</div>
+                    <div id="state-vars" class="state-vars">
+                        <!-- Dynamic State Injected Here -->
+                    </div>
+                </div>
+            </div>
+            
+            <div class="controls card">
+                <button id="btn-prev" class="control-btn secondary" disabled>Previous Step</button>
+                <span id="step-counter" class="step-counter">Step: 1 / X</span>
+                <button id="btn-next" class="control-btn primary">Next Step</button>
+                <button id="btn-reset" class="control-btn danger">Reset</button>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
